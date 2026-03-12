@@ -440,8 +440,8 @@
       <button class="modal-close" onclick="close_modal()">✕ close</button>
     </div>
     <div class="modal-actions">
-      <button class="btn-copy" id="copy-btn" onclick="copy_content()">⎘ &nbsp;Copy to clipboard</button>
-      <a class="btn-dl" id="dl-btn" href="#" download>↓ &nbsp;Download file</a>
+      <button class="btn-copy" id="copy-btn" onclick="copy_content()">Copy to clipboard</button>
+      <a class="btn-dl" id="dl-btn" href="#" download>Download file</a>
     </div>
     <div class="modal-body" id="modal-body">
       <div class="modal-loading">loading...</div>
@@ -598,7 +598,7 @@ async function open_modal(url, fname, lang) {
   document.getElementById('dl-btn').download=fname;
   document.getElementById('modal-body').innerHTML='<div class="modal-loading">loading...</div>';
   const btn=document.getElementById('copy-btn');
-  btn.innerHTML='⎘ &nbsp;Copy to clipboard'; btn.classList.remove('copied');
+  btn.innerHTML='Copy to clipboard'; btn.classList.remove('copied');
   document.getElementById('overlay').classList.add('show');
   try {
     const res=await fetch(url);
