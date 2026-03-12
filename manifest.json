@@ -1,0 +1,17 @@
+{
+  "future": {
+    "folder": "",
+    "version": "",
+    "count": 0
+  },
+  "live": {
+    "folder": "LIVE_version-b130242ed064436f",
+    "version": "version-b130242ed064436f",
+    "count": 304
+  },
+  "prelive": {
+    "folder": "PRE-LIVE_version-d599f7fc52a8404c",
+    "version": "version-d599f7fc52a8404c",
+    "count": 300
+  }
+}

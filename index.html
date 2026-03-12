@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIVE Roblox Offsets</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0b0d;
+    --surface: #111316;
+    --surface-hover: #16191d;
+    --border: #1e2228;
+    --border-hi: #2a2f38;
+
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.1);
+    --green-border: rgba(34,197,94,0.28);
+
+    --yellow: #d4943a;
+    --yellow-dim: rgba(212,148,58,0.1);
+    --yellow-border: rgba(212,148,58,0.28);
+
+    --blue: #4f8ef7;
+    --blue-dim: rgba(79,142,247,0.1);
+    --blue-border: rgba(79,142,247,0.28);
+
+    --text: #e2e8f0;
+    --sub: #6b7280;
+    --sub2: #9ca3af;
+
+    --c-blue: #4f8ef7;
+    --c-purple: #9b72f7;
+    --c-yellow: #c9973a;
+    --c-green: #34d399;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 36px 36px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(34,197,94,0.06) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 70px 24px 52px;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid var(--green-border);
+    background: var(--green-dim);
+    padding: 4px 11px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  .badge::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .header-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--sub);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .header-desc strong { color: var(--sub2); font-weight: 400; }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .section-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 5px 13px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .pill-future {
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+    background: var(--blue-dim);
+  }
+  .pill-future::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--blue);
+  }
+
+  .pill-live {
+    color: var(--green);
+    border: 1px solid var(--green-border);
+    background: var(--green-dim);
+  }
+  .pill-live::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  .pill-prelive {
+    color: var(--yellow);
+    border: 1px solid var(--yellow-border);
+    background: var(--yellow-dim);
+  }
+  .pill-prelive::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--yellow);
+  }
+
+  .section-version {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--sub2);
+  }
+
+  .section-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--sub);
+  }
+
+  .section-rule { flex: 1; height: 1px; background: var(--border); min-width: 20px; }
+
+  .section-block { margin-bottom: 52px; }
+
+  .empty-state {
+    border: 1px dashed var(--border-hi);
+    border-radius: 10px;
+    padding: 32px 24px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--sub);
+    letter-spacing: 0.04em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  @media (max-width: 650px) { .grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 380px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 18px 16px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.12s;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+  }
+
+  .card:hover { background: var(--surface-hover); border-color: var(--border-hi); transform: translateY(-2px); }
+  .card:active { transform: translateY(0); }
+
+  .card-ext { font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .ext-hpp  { color: var(--c-blue); }
+  .ext-cs   { color: var(--c-purple); }
+  .ext-json { color: var(--c-yellow); }
+  .ext-txt  { color: var(--sub2); }
+
+  .card-title { font-size: 0.86rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 5px; color: var(--text); }
+  .card-desc  { font-family: 'Space Mono', monospace; font-size: 0.58rem; color: var(--sub); line-height: 1.6; flex: 1; margin-bottom: 14px; }
+  .card-hint  { font-family: 'Space Mono', monospace; font-size: 0.57rem; color: var(--border-hi); letter-spacing: 0.04em; transition: color 0.15s; }
+  .card:hover .card-hint { color: var(--sub); }
+
+  /* ── MODAL ── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+  }
+  .overlay.show { display: flex; }
+
+  .modal {
+    background: #0d1117;
+    border: 1px solid var(--border-hi);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 820px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+    animation: pop 0.16s ease;
+  }
+
+  @keyframes pop {
+    from { opacity:0; transform: scale(0.97) translateY(8px); }
+    to   { opacity:1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #1e2530;
+    flex-shrink: 0;
+    gap: 12px;
+    background: #0d1117;
+  }
+
+  .modal-fname { font-family: 'Space Mono', monospace; font-size: 0.68rem; font-weight: 700; color: var(--text); }
+
+  .modal-close {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border-hi);
+    background: transparent;
+    color: var(--sub);
+    cursor: pointer;
+    transition: all 0.13s;
+  }
+  .modal-close:hover { color: var(--text); border-color: var(--sub); }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #1e2530;
+    flex-shrink: 0;
+    background: #0a0d10;
+  }
+
+  .btn-copy {
+    flex: 1;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    border-radius: 7px;
+    border: 1px solid var(--border-hi);
+    background: #161b22;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.13s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  .btn-copy:hover { background: #1e2530; border-color: #3a4350; }
+  .btn-copy.copied { border-color: rgba(34,197,94,0.45); color: var(--green); background: rgba(34,197,94,0.08); }
+
+  .btn-dl {
+    flex: 1;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    border-radius: 7px;
+    border: 1px solid var(--green-border);
+    background: var(--green-dim);
+    color: var(--green);
+    cursor: pointer;
+    transition: all 0.13s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  .btn-dl:hover { background: rgba(34,197,94,0.18); border-color: rgba(34,197,94,0.5); }
+
+  .modal-body {
+    overflow: auto;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2f38 transparent;
+    background: #0d1117;
+  }
+
+  .code-table { display: table; width: 100%; border-collapse: collapse; font-family: 'Space Mono', monospace; font-size: 0.67rem; line-height: 1.72; padding: 16px 0; }
+  .code-row { display: table-row; }
+  .code-row:hover .ln, .code-row:hover .lc { background: rgba(255,255,255,0.025); }
+  .ln { display: table-cell; text-align: right; padding: 0 16px 0 20px; color: #3a4050; user-select: none; white-space: nowrap; min-width: 52px; border-right: 1px solid #1a1f28; }
+  .lc { display: table-cell; padding: 0 20px 0 16px; white-space: pre; color: #abb2bf; }
+
+  .t-comment  { color: #5c6370; font-style: italic; }
+  .t-keyword  { color: #c678dd; }
+  .t-type     { color: #e5c07b; }
+  .t-ns       { color: #61afef; }
+  .t-name     { color: #e06c75; }
+  .t-number   { color: #d19a66; }
+  .t-string   { color: #98c379; }
+  .t-pp       { color: #c678dd; }
+  .t-incpath  { color: #98c379; }
+  .t-jkey     { color: #61afef; }
+  .t-jval-str { color: #98c379; }
+  .t-jval-num { color: #d19a66; }
+  .t-jval-bool{ color: #c678dd; }
+
+  .modal-loading { padding: 40px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--sub); }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--sub);
+    letter-spacing: 0.05em;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #2a2f38; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Bitdancer</div>
+  <h1>LIVE Roblox Offsets</h1>
+  <p class="header-desc">
+    Always up to date Roblox offsets.<br>
+    <strong>Offsets are updated after any roblox update.</strong>
+  </p>
+</header>
+
+<main id="main-content">
+  <!-- rendered by JS from manifest.json -->
+</main>
+
+<footer>bruesk_mardin &nbsp;·&nbsp; roblox offsets</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="maybe_close(event)">
+  <div class="modal" id="modal">
+    <div class="modal-top">
+      <span class="modal-fname" id="modal-fname">—</span>
+      <button class="modal-close" onclick="close_modal()">✕ close</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-copy" id="copy-btn" onclick="copy_content()">⎘ &nbsp;Copy to clipboard</button>
+      <a class="btn-dl" id="dl-btn" href="#" download>↓ &nbsp;Download file</a>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="modal-loading">loading...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function make_cards(folder) {
+  const files = [
+    { ext: 'hpp', cls: 'ext-hpp', title: 'C++ Header',  desc: 'inline constexpr uintptr_t<br>namespace Offsets', lang: 'cpp'  },
+    { ext: 'cs',  cls: 'ext-cs',  title: 'C# Class',    desc: 'public const long<br>static class Offsets',     lang: 'cs'   },
+    { ext: 'json',cls: 'ext-json',title: 'JSON',         desc: 'structured key-value<br>decimal values',        lang: 'json' },
+    { ext: 'txt', cls: 'ext-txt', title: 'Plain Text',   desc: 'Class::Field = 0xVAL<br>one per line',          lang: 'txt'  },
+  ];
+  return `<div class="grid">${files.map(f => `
+    <div class="card" onclick="open_modal('${folder}/Offsets.${f.ext}','Offsets.${f.ext}','${f.lang}')">
+      <div class="card-ext ${f.cls}">.${f.ext}</div>
+      <div class="card-title">${f.title}</div>
+      <div class="card-desc">${f.desc}</div>
+      <div class="card-hint">click to open →</div>
+    </div>`).join('')}</div>`;
+}
+
+function make_section(pillClass, pillLabel, version, count, contentHtml) {
+  const versionStr = version ? `<span class="section-version">${version}</span>` : '';
+  const countStr   = count   ? `<span class="section-count">${count} offsets</span>` : '';
+  return `
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-pill ${pillClass}">${pillLabel}</span>
+        ${versionStr}
+        ${countStr}
+        <div class="section-rule"></div>
+      </div>
+      ${contentHtml}
+    </div>`;
+}
+
+(async () => {
+  const main = document.getElementById('main-content');
+  let manifest;
+
+  try {
+    const res = await fetch(`manifest.json?t=${Date.now()}`);
+    if (!res.ok) throw new Error();
+    manifest = await res.json();
+  } catch {
+    main.innerHTML = '<p style="text-align:center;font-family:Space Mono,monospace;font-size:.7rem;color:#6b7280;padding:40px">could not load manifest.json</p>';
+    return;
+  }
+
+  let html = '';
+
+  const f = manifest.future;                                                                        // versions here
+  const futureContent = (f && f.folder)
+    ? make_cards(f.folder)
+    : '<div class="empty-state">No future build of roblox yet.</div>';
+  html += make_section('pill-future', 'Future Build',
+    f && f.folder ? f.version : '',
+    f && f.folder ? f.count   : 0,
+    futureContent);
+
+  const l = manifest.live;
+  html += make_section('pill-live', 'LIVE', l.version, l.count, make_cards(l.folder));
+
+  const p = manifest.prelive;
+  html += make_section('pill-prelive', 'Pre-LIVE', p.version, p.count, make_cards(p.folder));
+
+  main.innerHTML = html;
+})();
+
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function span(c, s) { return `<span class="${c}">${esc(s)}</span>`; }
+
+const CPP_KEYWORDS = new Set(['namespace','inline','constexpr','const','static','public','class','include','pragma','once','using','string','struct','return','private','protected','readonly','void','uint','bool','char','override','virtual','extern','typedef','enum','auto','new','delete','this','base','interface','sealed','abstract','partial','ref','out','in','params','sizeof','typeof','default','null','true','false']);
+const CPP_TYPES    = new Set(['uintptr_t','uint8_t','uint16_t','uint32_t','uint64_t','int8_t','int16_t','int32_t','int64_t','size_t','ptrdiff_t','long','bool','void','int','char','float','double','byte','string']);
+
+function tokenise_cpp(line, inBlock) {
+  let out = '', i = 0, len = line.length;
+  if (inBlock) {
+    const e = line.indexOf('*/');
+    if (e === -1) return { html: span('t-comment', line), inBlock: true };
+    out += span('t-comment', line.slice(0, e+2)); i = e+2; inBlock = false;
+  }
+  while (i < len) {
+    if (line[i]==='/'&&line[i+1]==='/') { out+=span('t-comment',line.slice(i)); break; }
+    if (line[i]==='/'&&line[i+1]==='*') {
+      const e=line.indexOf('*/',i+2);
+      if (e===-1) { out+=span('t-comment',line.slice(i)); return {html:out,inBlock:true}; }
+      out+=span('t-comment',line.slice(i,e+2)); i=e+2; continue;
+    }
+    if (line[i]==='#') {
+      const m=line.slice(i).match(/^(#\s*\w+)(.*)/);
+      if (m) { out+=span('t-pp',m[1]); const pm=m[2].match(/^(\s*)(<[^>]+>|"[^"]+")(.*)$/); if(pm) out+=esc(pm[1])+span('t-incpath',pm[2])+esc(pm[3]); else out+=esc(m[2]); break; }
+    }
+    if (line[i]==='"') { let j=i+1; while(j<len&&!(line[j]==='"'&&line[j-1]!=='\\'))j++; out+=span('t-string',line.slice(i,j+1)); i=j+1; continue; }
+    if (line[i]==='0'&&line[i+1]==='x') { const m=line.slice(i).match(/^0x[0-9a-fA-F]+/); if(m){out+=span('t-number',m[0]);i+=m[0].length;continue;} }
+    if (/[0-9]/.test(line[i])&&(i===0||/\W/.test(line[i-1]))) { const m=line.slice(i).match(/^[0-9]+/); if(m){out+=span('t-number',m[0]);i+=m[0].length;continue;} }
+    if (/[A-Za-z_]/.test(line[i])) {
+      const m=line.slice(i).match(/^[A-Za-z_][A-Za-z0-9_]*/);
+      if (m) {
+        const w=m[0];
+        if (CPP_KEYWORDS.has(w))   out+=span('t-keyword',w);
+        else if (CPP_TYPES.has(w)) out+=span('t-type',w);
+        else if (/t-keyword[^>]*>namespace<\/span>\s*$/.test(out.trimEnd())) out+=span('t-ns',w);
+        else out+=span('t-name',w);
+        i+=w.length; continue;
+      }
+    }
+    out+=esc(line[i]); i++;
+  }
+  return {html:out, inBlock};
+}
+
+function highlight_json(line) {
+  let out = line.replace(/^(\s*)("(?:[^"\\]|\\.)*")(\s*:\s*)(.*)/, (_, ind, key, col, val) => {
+    let vhl=val;
+    if (/^"/.test(val.trim()))           vhl=val.replace(/("(?:[^"\\]|\\.)*")/,m=>span('t-jval-str',m));
+    else if (/^-?[0-9]/.test(val.trim()))vhl=val.replace(/(-?[0-9]+(?:\.[0-9]+)?)/,m=>span('t-jval-num',m));
+    else if (/^(true|false|null)/.test(val.trim())) vhl=val.replace(/(true|false|null)/,m=>span('t-jval-bool',m));
+    return esc(ind)+span('t-jkey',key.slice(1,-1))+esc(col)+vhl;
+  });
+  if (out===line) out=line.replace(/"([^"]*)"/,m=>span('t-jval-str',m));
+  return out;
+}
+
+function highlight_txt(line) {
+  const r=line.replace(/^([A-Za-z_][A-Za-z0-9_]*)(::)([A-Za-z_][A-Za-z0-9_]*)(\s*=\s*)(0x[0-9a-fA-F]+|[0-9]+)/,
+    (_,ns,sep,field,eq,val)=>span('t-ns',ns)+span('t-comment',sep)+span('t-name',field)+esc(eq)+span('t-number',val));
+  return r!==line?r:esc(line);
+}
+
+function render_code(text, lang) {
+  const lines=text.split('\n');
+  if (lines[lines.length-1].trim()==='') lines.pop();
+  let html='<div class="code-table">', inBlock=false;
+  lines.forEach((line,idx)=>{
+    let lh;
+    if (lang==='cpp'||lang==='cs') { const r=tokenise_cpp(line,inBlock); lh=r.html; inBlock=r.inBlock; }
+    else if (lang==='json') lh=highlight_json(line);
+    else lh=highlight_txt(line);
+    html+=`<div class="code-row"><span class="ln">${idx+1}</span><span class="lc">${lh}</span></div>`;
+  });
+  return html+'</div>';
+}
+
+let fullText='';
+
+async function open_modal(url, fname, lang) {
+  fullText='';
+  document.getElementById('modal-fname').textContent=fname;
+  document.getElementById('dl-btn').href=url;
+  document.getElementById('dl-btn').download=fname;
+  document.getElementById('modal-body').innerHTML='<div class="modal-loading">loading...</div>';
+  const btn=document.getElementById('copy-btn');
+  btn.innerHTML='⎘ &nbsp;Copy to clipboard'; btn.classList.remove('copied');
+  document.getElementById('overlay').classList.add('show');
+  try {
+    const res=await fetch(url);
+    if (!res.ok) throw new Error();
+    fullText=await res.text();
+    document.getElementById('modal-body').innerHTML=render_code(fullText,lang);
+  } catch {
+    document.getElementById('modal-body').innerHTML='<div class="modal-loading">could not load file</div>';
+  }
+}
+
+function close_modal() { document.getElementById('overlay').classList.remove('show'); fullText=''; }
+function maybe_close(e) { if(e.target===document.getElementById('overlay')) close_modal(); }
+
+async function copy_content() {
+  if (!fullText) return;
+  await navigator.clipboard.writeText(fullText);
+  const btn=document.getElementById('copy-btn');
+  btn.innerHTML='✓ &nbsp;Copied!'; btn.classList.add('copied');
+  setTimeout(()=>{ btn.innerHTML='⎘ &nbsp;Copy to clipboard'; btn.classList.remove('copied'); },2000);
+}
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') close_modal(); });
+</script>
+
+</body>
+</html>
