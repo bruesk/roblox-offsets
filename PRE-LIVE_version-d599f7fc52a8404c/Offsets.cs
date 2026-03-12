@@ -1,6 +1,6 @@
 /* dumped by bruesk_mardin
 /* bruesk.github.io/roblox-offsets
-/* offsets for roblox: version-b130242ed064436f
+/* offsets for roblox: version-d599f7fc52a8404c
 */
 
 namespace Offsets {
